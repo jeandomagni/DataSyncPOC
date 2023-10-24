@@ -4,4 +4,4 @@ OfflineSyncPwaDemoApp.RemoteMicroService and OfflineSyncPwaDemoApp.RemoteMicroSe
 
 1. So to run locally, you need to start OfflineSyncPwaDemoApp.LocalMicroService from Visual Studio 2022.
 2. Move to AngularUI folder, open cmd and run ng build then ng serve. This will run UI that will connect to LocalMicroService and get data from it.
-
+3. Open http://localhost:4200 in browser
