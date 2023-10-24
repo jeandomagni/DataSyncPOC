@@ -1,0 +1,18 @@
+<div class="flex-container">
+    <div>
+        <h2>First Remote Microservice Todo List</h2>
+        <div>
+        <div class="todoitem" *ngFor="let t of todo">
+            <b [class.cross]="t.isComplete == true">{{t.title}}</b>
+        </div>
+        </div>
+    </div>
+    <div>
+        <h2>Second Remote Microservice Todo List</h2>
+        <div>
+        <div class="todoitem" *ngFor="let t of todo2">
+            <b [class.cross]="t.isComplete == true">{{t.title}}</b>
+        </div>
+        </div>
+    </div>
+</div>
