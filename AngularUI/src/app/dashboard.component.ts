@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoModel } from './todo.model';
-import { TodoService } from './todo.service';
-import { Todo2Service } from './todo2.service';
+import { PatientModel } from './patient.model';
+import { MedicationModel } from './medication.model';
+import { PatientsService } from './patients.service';
+import { MedicationsService } from './medications.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,22 +10,60 @@ import { Todo2Service } from './todo2.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  todo: TodoModel[] = [];
-  todo2: TodoModel[] = [];
+  patients: PatientModel[] = [];
+  medications: MedicationModel[] = [];
 
-  constructor(private todoService: TodoService, private todo2Service: Todo2Service) { }
+  newPatient: PatientModel = new PatientModel();
+  newMedication: MedicationModel = new MedicationModel();
+
+  constructor(private patientsService: PatientsService, private medicationsService: MedicationsService) { }
 
   ngOnInit(): void {
-    this.getTodo();
-    this.getTodo2();
+    this.getPatients();
+    this.getMedications();
   }
 
-  getTodo(): void {
-    this.todoService.getTodo()
-      .subscribe(todo => this.todo = todo);
+  getPatients(): void {
+    this.patientsService.getPatients()
+      .subscribe((patients: PatientModel[]) => this.patients = patients);
   }
-  getTodo2(): void {
-    this.todo2Service.getTodo()
-      .subscribe(todo2 => this.todo2 = todo2);
+  getMedications(): void {
+    this.medicationsService.getMedications()
+      .subscribe((medications: MedicationModel[]) => this.medications = medications);
+  }
+
+  addNewMedication(): void {
+    this.medicationsService.saveMedication(this.newMedication).subscribe((createdMedication: MedicationModel) => {
+      this.medications.push(createdMedication);
+      this.newMedication = new MedicationModel();
+    });
+  }
+
+  addNewPatient(): void {
+    this.patientsService.saveNewPatient(this.newPatient).subscribe((createdPatient: PatientModel) => {
+    this.patients.push(createdPatient);
+      this.newPatient = new PatientModel();
+    });
+    
+  }
+
+  removeMedication(m: MedicationModel): void {
+    this.medicationsService.removeMedication(m).subscribe(() => {
+      this.removeItemOnce(this.medications, m);
+    });
+  }
+
+  removePatient(p: PatientModel): void {
+    this.patientsService.removePatient(p).subscribe(() => {
+      this.removeItemOnce(this.patients, p);
+    });
+  }
+
+  removeItemOnce(arr: any[], value: any) {
+    var index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
   }
 }

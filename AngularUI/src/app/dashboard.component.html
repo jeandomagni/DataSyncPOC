@@ -1,18 +1,30 @@
 <div class="flex-container">
     <div>
-        <h2>First Remote Microservice Todo List</h2>
+        <h2>Patients</h2>
         <div>
-        <div class="todoitem" *ngFor="let t of todo">
-            <b [class.cross]="t.isComplete == true">{{t.title}}</b>
-        </div>
+            <div class="item" *ngFor="let p of patients">
+                <b>{{p.firstName}} {{p.lastName}}</b> <a href="#" style="margin-left: 15px;" (click)="removePatient(p)">Delete</a>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <input #firstName type="text" placeholder="First Name" (change)='newPatient.firstName=firstName.value' [value]="newPatient.firstName" /> 
+                <input #lastName type="text" placeholder="Last Name" (change)='newPatient.lastName=lastName.value' [value]="newPatient.lastName" /> 
+                <button (click)="addNewPatient()">Add New Patient</button>
+            </div>
         </div>
     </div>
     <div>
-        <h2>Second Remote Microservice Todo List</h2>
+        <h2>Medications</h2>
         <div>
-        <div class="todoitem" *ngFor="let t of todo2">
-            <b [class.cross]="t.isComplete == true">{{t.title}}</b>
-        </div>
+            <div class="item" *ngFor="let m of medications">
+                <b>{{m.name}} - {{m.dose}}</b> <a href="#" style="margin-left: 15px;" (click)="removeMedication(m)">Delete</a>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <input type="text" placeholder="Name" #name (change)='newMedication.name=name.value' [value]="newMedication.name" /> 
+                <input type="text" placeholder="Dose" #dose (change)='newMedication.dose=dose.value' [value]="newMedication.dose" /> 
+                <button (click)="addNewMedication()">Add New Medication</button>
+            </div>
         </div>
     </div>
 </div>

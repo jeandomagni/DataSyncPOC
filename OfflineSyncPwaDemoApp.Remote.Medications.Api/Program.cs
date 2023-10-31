@@ -1,13 +1,22 @@
-using OfflineSyncPwaDemoApp.LocalMicroService.Services;
+using Microsoft.EntityFrameworkCore;
+using OfflineSyncPwaDemoApp.Remote.Medications.Api.Db;
+using OfflineSyncPwaDemoApp.Remote.Medications.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddTransient<ITodoService, RemoteTodoService>();
-builder.Services.AddTransient<ITodo2Service, RemoteTodo2Service>();
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (connectionString == null)
+{
+    throw new ApplicationException("DefaultConnection is not set");
+}
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddTransient<IMedicationsService, MedicationsService>();
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
@@ -20,10 +29,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
 app.UseCors(MyAllowSpecificOrigins);
+// Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 
