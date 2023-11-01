@@ -111,8 +111,6 @@ namespace OfflineSyncPwaDemoApp.Local.Medications.Api.Services
             }
             catch (Exception e)
             {
-
-                throw;
             }
         }
 
