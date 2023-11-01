@@ -1,4 +1,5 @@
-﻿using Microsoft.Datasync.Client;
+﻿using Hangfire;
+using Microsoft.Datasync.Client;
 using Microsoft.Datasync.Client.SQLiteStore;
 using OfflineSyncPwaDemoApp.Local.Patients.Api.Models;
 
@@ -10,6 +11,7 @@ namespace OfflineSyncPwaDemoApp.Local.Patients.Api.Services
 
         Task<IEnumerable<Patient>> Get();
 
+        [Hangfire.AutomaticRetry(Attempts = 0, OnAttemptsExceeded = AttemptsExceededAction.Delete)]
         Task Refresh();
 
         Task Remove(Patient item);

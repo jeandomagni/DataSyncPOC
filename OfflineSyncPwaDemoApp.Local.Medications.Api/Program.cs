@@ -46,7 +46,7 @@ app.UseEndpoints(endpoints =>
 
 app.UseHangfireDashboard(string.Empty);
 
-RecurringJob.AddOrUpdate<IMedicationsService>("syncdata", medicationsService => medicationsService.Refresh(), Cron.Minutely);
+RecurringJob.AddOrUpdate<IMedicationsService>("syncdata", medicationsService => medicationsService.Refresh(), "*/2 * * * *");
 
 
 app.Run();
