@@ -1,9 +1,9 @@
 <div class="flex-container">
-    <div>
+    <div class="card">
         <h2>Patients</h2>
         <div>
             <div class="item" *ngFor="let p of patients">
-                <b>{{p.firstName}} {{p.lastName}}</b> <a href="#" style="margin-left: 15px;" (click)="removePatient(p)">Delete</a>
+                <b>{{p.firstName}} {{p.lastName}}</b> <a href="#" style="float:right" (click)="removePatient(p)">Delete</a>
             </div>
             
             <div style="margin-top: 30px;">
@@ -13,11 +13,11 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="card">
         <h2>Medications</h2>
         <div>
             <div class="item" *ngFor="let m of medications">
-                <b>{{m.name}} - {{m.dose}}</b> <a href="#" style="margin-left: 15px;" (click)="removeMedication(m)">Delete</a>
+                <b>{{m.name}} - {{m.dose}}</b> <a href="#" style="float:right" (click)="removeMedication(m)">Delete</a>
             </div>
 
             <div style="margin-top: 30px;">
